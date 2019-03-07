@@ -20,9 +20,12 @@ namespace EscrowManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        float a;
         public MainWindow()
         {
             InitializeComponent();
+            Account account = new Account();
+            a = account.Balance;
         }
     }
 }
