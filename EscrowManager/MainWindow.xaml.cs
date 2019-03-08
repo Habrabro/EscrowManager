@@ -24,11 +24,17 @@ namespace EscrowManager
         {
             InitializeComponent();
 
-            Bank bank = new Bank("Sberbank", 0);
-            ApartmentBuyer buyer = new ApartmentBuyer("Sergey", 3000000);
-            buyer.account.Added += showMessage;
-            buyer.account.Withdrawn += showMessage;
-            buyer.account.Put(200000, Currencies.rub, Currencies.dol);
+            Bank bank = new Bank("VTB", 0);
+            ApartmentBuyer apartmentBuyer = new ApartmentBuyer("Karpushko Anton Aleksandrovich", 5000000);
+            Developer developer = new Developer("MosGorStroy", 0);
+            bank.account.Added += showMessage;
+            bank.account.Withdrawn += showMessage;
+            apartmentBuyer.account.Added += showMessage;
+            apartmentBuyer.account.Withdrawn += showMessage;
+            developer.account.Added += showMessage;
+            developer.account.Withdrawn += showMessage;
+            Contract contract = new Contract(bank, apartmentBuyer, developer, 3000000, Currencies.rub);
+            bank.ObligationsFulfilled = true;
         }
 
         void showMessage(string message)

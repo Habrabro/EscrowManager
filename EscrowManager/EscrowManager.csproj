@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Transaction.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +68,7 @@
     </Compile>
     <Compile Include="Bank.cs" />
     <Compile Include="Beneficiary.cs" />
+    <Compile Include="Contract.cs" />
     <Compile Include="ContractSubject.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Deponent.cs" />
