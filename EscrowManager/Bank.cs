@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace EscrowManager
 {
-    class Bank
+    class Bank : ContractSubject
     {
-        Account account;
-        public Bank(float initialBalance)
+        public Bank(string name, float initialBalance) : base(name, initialBalance)
         {
-            account = new Account(initialBalance);
+            
         }
     }
 }

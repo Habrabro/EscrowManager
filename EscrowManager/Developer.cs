@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EscrowManager
 {
-    abstract class Deponent : ContractSubject
+    class Developer : Beneficiary
     {
-        public Deponent(string name, float initialBalance) : base(name, initialBalance)
+        public Developer(string name, float initialBalance) : base(name, initialBalance)
         {
 
         }

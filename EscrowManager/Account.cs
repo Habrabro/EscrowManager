@@ -9,20 +9,41 @@ namespace EscrowManager
 {
     class Account
     {
-        float balance;
+        public delegate void AccountStateHandler(string message);
+        public event AccountStateHandler Added;
+        public event AccountStateHandler Withdrawn;
 
-        public void Add(float sum)
+        Converter converter;
+
+        public float CurrentBalance { get; private set; }
+        public void Put(float sum, Currencies currency)
         {
-            balance += sum;
+            CurrentBalance += sum;
+            Added?.Invoke($"На счёт поступило {sum} {currency}");
         }
-        public void Sub(float sum)
+        public void Put(float sum, Currencies initialCurrency, Currencies targetCurrency)
         {
-            balance -= sum;
+            sum = converter.convert(sum, initialCurrency, targetCurrency);
+            CurrentBalance += sum;
+            Added?.Invoke($"На счёт поступило {sum} {targetCurrency} (переведено из {initialCurrency} в {targetCurrency})");
+        }
+
+        public void Withdraw(float sum, Currencies currency)
+        {
+            CurrentBalance -= sum;
+            Withdrawn?.Invoke($"Со счёта списано {sum} {currency}");
+        }
+        public void Withdraw(float sum, Currencies initialCurrency, Currencies targetCurrency)
+        {
+            sum = converter.convert(sum, initialCurrency, targetCurrency);
+            CurrentBalance -= sum;
+            Withdrawn?.Invoke($"Со счёта списано {sum} {targetCurrency} (переведено из {initialCurrency} в {targetCurrency})");
         }
 
         public Account(float initialBalance)
         {
-            balance = initialBalance;
+            CurrentBalance = initialBalance;
+            converter = new Converter();
         }
     }
 }
