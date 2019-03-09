@@ -8,7 +8,7 @@ namespace EscrowManager
 {
     class Bank : ContractSubject
     {
-        public delegate void ObligationsStateHandler(string message);
+        public delegate void ObligationsStateHandler(bool status);
         public event ObligationsStateHandler ObligationsFulfilledEvent;
 
         bool obligationsFulfilled;
@@ -20,11 +20,19 @@ namespace EscrowManager
             }
             set
             {
-                ObligationsFulfilledEvent?.Invoke($"Статус выполнения обязательств изменён на {value}.");
+                ObligationsFulfilledEvent?.Invoke(value);
             }
         }
 
-        public Bank(string name, float initialBalance) : base(name, initialBalance)
+        Converter converter = new Converter();
+
+        public void makeTransaction(ContractSubject sender, ContractSubject receiver, Money money)
+        {
+            sender.account.Withdraw(money);
+            receiver.account.Put(money);
+        }
+
+        public Bank(string name, Money money) : base(name, money)
         {
             obligationsFulfilled = false;
         }

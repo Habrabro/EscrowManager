@@ -11,10 +11,10 @@ namespace EscrowManager
         string name;
         public Account account;
 
-        public ContractSubject(string name, float initialBalance)
+        public ContractSubject(string name, Money money)
         {
             this.name = name;
-            account = new Account(initialBalance);
+            account = new Account(money);
         }
     }
 }

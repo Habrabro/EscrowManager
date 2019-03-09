@@ -10,9 +10,15 @@ namespace EscrowManager
 
     class Converter
     {
-        int enumLength = Enum.GetNames(typeof(Currencies)).Length;
-        float[,] rates;
+        static int enumLength = Enum.GetNames(typeof(Currencies)).Length;
+        static float[,] rates;
         Random random = new Random();
+
+        static public Money convert(Money money, Currencies targetCurrency)
+        {
+            return new Money(money.Sum * rates[(int)money.Currency, (int)targetCurrency], targetCurrency);
+        }
+
         public Converter()
         {
             rates = new float[enumLength, enumLength];
@@ -23,10 +29,6 @@ namespace EscrowManager
                     rates[i, j] = random.Next(100);
                 }
             }
-        }
-        public float convert(float sum, Currencies initialCurrency, Currencies targetCurrency)
-        {
-            return sum *= rates[(int)initialCurrency, (int)targetCurrency];
         }
     }
 }

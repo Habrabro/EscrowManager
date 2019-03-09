@@ -9,7 +9,7 @@ namespace EscrowManager
     abstract class Beneficiary : ContractSubject
     {       
 
-        public Beneficiary(string name, float initialBalance) : base(name, initialBalance)
+        public Beneficiary(string name, Money money) : base(name, money)
         {
 
         }

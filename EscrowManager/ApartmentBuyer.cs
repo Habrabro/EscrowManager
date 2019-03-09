@@ -9,7 +9,7 @@ namespace EscrowManager
     class ApartmentBuyer : Deponent
     {
 
-        public ApartmentBuyer(string name, float initialBalance) : base(name, initialBalance)
+        public ApartmentBuyer(string name, Money money) : base(name, money)
         {
 
         }

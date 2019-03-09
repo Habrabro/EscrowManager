@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Transaction.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +70,7 @@
     <Compile Include="Contract.cs" />
     <Compile Include="ContractSubject.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="Credit.cs" />
     <Compile Include="Deponent.cs" />
     <Compile Include="Developer.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -79,6 +79,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Money.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

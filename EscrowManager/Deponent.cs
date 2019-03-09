@@ -8,7 +8,7 @@ namespace EscrowManager
 {
     abstract class Deponent : ContractSubject
     {
-        public Deponent(string name, float initialBalance) : base(name, initialBalance)
+        public Deponent(string name, Money money) : base(name, money)
         {
 
         }

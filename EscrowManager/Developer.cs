@@ -8,7 +8,7 @@ namespace EscrowManager
 {
     class Developer : Beneficiary
     {
-        public Developer(string name, float initialBalance) : base(name, initialBalance)
+        public Developer(string name, Money money) : base(name, money)
         {
 
         }

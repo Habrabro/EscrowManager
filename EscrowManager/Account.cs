@@ -13,37 +13,30 @@ namespace EscrowManager
         public event AccountStateHandler Added;
         public event AccountStateHandler Withdrawn;
 
-        Converter converter;
-
-        public float CurrentBalance { get; private set; }
-        public void Put(float sum, Currencies currency)
+        public Money CurrentBalance { get; private set; }
+                
+        public void Put(Money money)
         {
-            CurrentBalance += sum;
-            Added?.Invoke($"На счёт поступило {sum} {currency}");
-        }
-        public void Put(float sum, Currencies initialCurrency, Currencies targetCurrency)
-        {
-            sum = converter.convert(sum, initialCurrency, targetCurrency);
-            CurrentBalance += sum;
-            Added?.Invoke($"На счёт поступило {sum} {targetCurrency} (переведено из {initialCurrency} в {targetCurrency})");
+            CurrentBalance += money;
+            Added?.Invoke($"На счёт поступило {money.Sum} {money.Currency}");
         }
 
-        public void Withdraw(float sum, Currencies currency)
+        public void Withdraw(Money money)
         {
-            CurrentBalance -= sum;
-            Withdrawn?.Invoke($"Со счёта списано {sum} {currency}");
-        }
-        public void Withdraw(float sum, Currencies initialCurrency, Currencies targetCurrency)
-        {
-            sum = converter.convert(sum, initialCurrency, targetCurrency);
-            CurrentBalance -= sum;
-            Withdrawn?.Invoke($"Со счёта списано {sum} {targetCurrency} (переведено из {initialCurrency} в {targetCurrency})");
+            if (CurrentBalance - money >= new Money(0, money.Currency))
+            {
+                CurrentBalance -= money;
+                Withdrawn?.Invoke($"Со счёта списано {money.Sum} {money.Currency}");
+            }
+            else
+            {
+                Withdrawn?.Invoke("На счёте не достаточно средств для списания.");
+            }
         }
 
-        public Account(float initialBalance)
+        public Account(Money money)
         {
-            CurrentBalance = initialBalance;
-            converter = new Converter();
+            CurrentBalance = money;
         }
     }
 }
