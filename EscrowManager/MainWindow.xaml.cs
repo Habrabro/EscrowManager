@@ -37,7 +37,7 @@ namespace EscrowManager
             bank.ObligationsFulfilled = true;
         }
 
-        void showMessage(string message)
+        void showMessage(string message, bool status)
         {
             MessageBox.Show(message);
         }

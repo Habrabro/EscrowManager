@@ -9,7 +9,7 @@ namespace EscrowManager
 {
     class Account
     {
-        public delegate void AccountStateHandler(string message);
+        public delegate void AccountStateHandler(string message, bool status);
         public event AccountStateHandler Added;
         public event AccountStateHandler Withdrawn;
 
@@ -18,7 +18,7 @@ namespace EscrowManager
         public void Put(Money money)
         {
             CurrentBalance += money;
-            Added?.Invoke($"На счёт поступило {money.Sum} {money.Currency}");
+            Added?.Invoke($"На счёт поступило {money.Sum} {money.Currency}", true);
         }
 
         public void Withdraw(Money money)
@@ -26,11 +26,11 @@ namespace EscrowManager
             if (CurrentBalance - money >= new Money(0, money.Currency))
             {
                 CurrentBalance -= money;
-                Withdrawn?.Invoke($"Со счёта списано {money.Sum} {money.Currency}");
+                Withdrawn?.Invoke($"Со счёта списано {money.Sum} {money.Currency}", true);
             }
             else
             {
-                Withdrawn?.Invoke("На счёте не достаточно средств для списания.");
+                Withdrawn?.Invoke("На счёте не достаточно средств для списания.", false);
             }
         }
 
